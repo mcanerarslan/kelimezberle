@@ -28,4 +28,6 @@
 pip install colorama
 ```
 ### Başlatmak için (terminale yazınız)
+```bash
 python3 kelimeezberle.py
+```
