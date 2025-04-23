@@ -1,11 +1,14 @@
 import random
-#renk kısmı başlangıç
-import colorama 
-from colorama import Fore, Back, Style
-colorama.init()
-#renk kısmı son
+import colorama
+from colorama import Fore, Style
 
-dct = {
+# Renk modülü başlat
+colorama.init()
+
+# ─────────────────────────────
+# ▸ Soru-Cevap Veritabanı
+# ─────────────────────────────
+quiz_data = {
     "Teizm": "Tanrıcılık",
     "Deizm": "Yaratancılık",
     "Hümanizm": "İnsancıllık",
@@ -13,19 +16,55 @@ dct = {
     "İdealizm": "Fikircilik",
     "Monizm": "Bircilik",
     "Relativizm": "Görecelilik"
-    }
+}
 
-if not dct:
+if not quiz_data:
+    print(Fore.RED + "❌ Veri seti boş!" + Style.RESET_ALL)
     exit()
 
-print(Fore.LIGHTCYAN_EX+'\n================\t'+Fore.MAGENTA+'Soru/Cevap'+Fore.LIGHTCYAN_EX+'\t================')
+# ─────────────────────────────
+# ▸ Giriş Ekranı
+# ─────────────────────────────
+print(Fore.CYAN + "\n===============================")
+print(Fore.MAGENTA + "         SORU / CEVAP         ")
+print(Fore.CYAN + "===============================\n" + Style.RESET_ALL)
+print(Fore.YELLOW + "Çıkmak için 'q' yazabilirsin.\n" + Style.RESET_ALL)
 
-while True:
-    kelime, cevap = random.choice(list(dct.items()))
-    print(Fore.MAGENTA+"\n[x]Soru:\t\t"+Fore.YELLOW+kelime+Style.RESET_ALL,end=Fore.BLUE+"\t\n[-]Cevabın:\t\t"+Style.RESET_ALL)
-    input_ = input()
-    if input_ == "q":
+# ─────────────────────────────
+# ▸ Skor Bilgileri
+# ─────────────────────────────
+score_true = 0
+score_false = 0
+
+# ─────────────────────────────
+# ▸ Ana Döngü
+# ─────────────────────────────
+while quiz_data:
+    kelime, cevap = random.choice(list(quiz_data.items()))
+    print(Fore.MAGENTA + "[🧠 Soru]  ", end="")
+    print(Fore.YELLOW + kelime + Style.RESET_ALL)
+
+    input_ = input(Fore.BLUE + "✏️  Cevabın: " + Style.RESET_ALL).strip()
+
+    if input_.lower() == "q":
+        print(Fore.CYAN + "\n⏹️  Quiz sonlandırıldı.\n" + Style.RESET_ALL)
         break
-    
-    print("[+]Doğru Cevap:\t\t"+Fore.RED+cevap, end=Fore.RED+"\n\n================\n")
-    del dct[kelime]
+
+    if input_.lower() == cevap.lower():
+        print(Fore.GREEN + "✔ Doğru!" + Style.RESET_ALL)
+        score_true += 1
+    else:
+        print(Fore.RED + f"✖ Yanlış! Doğru cevap: {cevap}" + Style.RESET_ALL)
+        score_false += 1
+
+    del quiz_data[kelime]
+
+    print(Fore.LIGHTBLACK_EX + "──────────────────────────────\n" + Style.RESET_ALL)
+
+# ─────────────────────────────
+# ▸ Quiz Sonu
+# ─────────────────────────────
+print(Fore.CYAN + "🎉 Quiz Tamamlandı!" + Style.RESET_ALL)
+print(Fore.LIGHTGREEN_EX + f"✅ Doğru: {score_true}" + Style.RESET_ALL)
+print(Fore.LIGHTRED_EX + f"❌ Yanlış: {score_false}" + Style.RESET_ALL)
+print(Fore.CYAN + "\n🔚 Program sonlandı." + Style.RESET_ALL)
