@@ -26,6 +26,6 @@
 - colorama paketi:
 ```bash
 pip install colorama
-
-### Başlatmak için
+```
+### Başlatmak için (terminale yazınız)
 python3 kelimeezberle.py
